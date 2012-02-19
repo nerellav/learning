@@ -37,9 +37,10 @@ class LRUCacheImpl implements LRUCache {
 	private final Map<String, ValueRecord> cache = Collections
 			.synchronizedMap(map);
 
-	public LRUCacheImpl() {
-		// start a scheduler to remove stale entries in cache
+	LRUCacheImpl() {
 		System.out.println("creating the cache for: " + Thread.currentThread().toString());
+		
+		// start a scheduler to remove stale entries in cache
 		startTimerTask();
 	}
 

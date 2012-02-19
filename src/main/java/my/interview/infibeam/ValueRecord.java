@@ -28,10 +28,10 @@ class ValueRecord {
 	 * @param t
 	 * @param timetolive
 	 */
-	ValueRecord(String v, Date d,long timetolive) {
+	ValueRecord(String v, Date d,long timeToLive) {
 		value = v;
 		timeInserted = d;
-		ttl = timetolive;
+		ttl = timeToLive;
 	}
 	
 	String getValue() {
