@@ -24,7 +24,7 @@ class LRUCacheImpl implements LRUCache {
 	private final Map<String, ValueRecord> map = new LinkedHashMap<String, ValueRecord>(
 			MAX_CACHE_SIZE, 0.75f, true) {
 
-		// overriding this method to remove least recently used methods. i.e the
+		// overriding this method to remove least recently used element. i.e the
 		// cache contains MAX_CACHE_SIZE elements at max
 		@Override
 		protected boolean removeEldestEntry(
