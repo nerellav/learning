@@ -1,9 +1,10 @@
 /**
  * 
  */
-package my.interview;
+package my.interview.infibeam;
 
 /**
+ * 
  * @author vamsi
  *
  */
@@ -19,9 +20,9 @@ public interface LRUCache {
 	 * 
 	 * @param key
 	 * @param value
-	 * @param ttl - time to live in seconds
+	 * @param ttl - time to live in milliseconds
 	 */
-	void put(String key, String value, int ttl); 
+	void put(String key, String value, long ttl); 
 	
 	/**
 	 * 

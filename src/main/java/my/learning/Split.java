@@ -14,6 +14,8 @@ public class Split {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		int t = (1 << 10);
+		System.out.println(t);
 		String s = "fofofofof";
 
 		System.out.println(s.split("fo").length - 1);
