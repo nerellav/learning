@@ -1,10 +1,11 @@
 /**
  * 
  */
-package my.interview.infibeam;
+package my.learning;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -13,31 +14,20 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import my.interview.infibeam.LRUCache;
+
 /**
  * @author vamsi
  * 
  */
-class LRUCacheImpl implements LRUCache {
+class LRURelaxedCacheImpl implements LRUCache {
 	private static final int MAX_CACHE_SIZE = 10000;
 
 	@SuppressWarnings("serial")
-	private final Map<String, ValueRecord> map = new LinkedHashMap<String, ValueRecord>(
-			MAX_CACHE_SIZE, 0.75f, true) {
-
-		// overriding this method to remove least recently used element. i.e the
-		// cache contains MAX_CACHE_SIZE elements at max
-		@Override
-		protected boolean removeEldestEntry(
-				@SuppressWarnings("rawtypes") Map.Entry eldest) {
-			return size() > MAX_CACHE_SIZE;
-		}
-	};
+	private final Map<String, ValueRecordNode> cache = new HashMap<String, ValueRecordNode>(
+			MAX_CACHE_SIZE, 0.75f);
 	
-	//wrap linkedHashMap in a synchronizedMap to achieve synchronization + LRU capabilities
-	private final Map<String, ValueRecord> cache = Collections
-			.synchronizedMap(map);
-
-	LRUCacheImpl() {
+	LRURelaxedCacheImpl() {
 		System.out.println("creating the cache for: " + Thread.currentThread().toString());
 		
 		// start a scheduler to remove stale entries in cache
@@ -52,7 +42,7 @@ class LRUCacheImpl implements LRUCache {
 	 */
 	@Override
 	public void put(String key, String value) {
-		ValueRecord valueRecord = new ValueRecord(value, new Date());
+		ValueRecordNode valueRecord = new ValueRecordNode(value, new Date());
 		cache.put(key, valueRecord);
 	}
 
@@ -64,7 +54,7 @@ class LRUCacheImpl implements LRUCache {
 	 */
 	@Override
 	public void put(String key, String value, long ttl) {
-		ValueRecord valueRecord = new ValueRecord(value, new Date(), ttl);
+		ValueRecordNode valueRecord = new ValueRecordNode(value, new Date(), ttl);
 		cache.put(key, valueRecord);
 	}
 
@@ -75,7 +65,7 @@ class LRUCacheImpl implements LRUCache {
 	 */
 	@Override
 	public String get(String key) {
-		ValueRecord valueRecord = cache.get(key);
+		ValueRecordNode valueRecord = cache.get(key);
 
 		String value = null;
 		if (valueRecord != null) {
@@ -100,7 +90,7 @@ class LRUCacheImpl implements LRUCache {
 	 */
 	@Override
 	public String remove(String key) {
-		ValueRecord valueRecord = cache.remove(key);
+		ValueRecordNode valueRecord = cache.remove(key);
 		String value = null;
 		if (valueRecord != null) {
 			value = valueRecord.getValue();
@@ -135,10 +125,10 @@ class LRUCacheImpl implements LRUCache {
 		synchronized (cache) {
 			Iterator itr = cache.entrySet().iterator();
 			while (itr.hasNext()) {
-				Entry<String, ValueRecord> e = (Entry<String, ValueRecord>) itr
+				Entry<String, ValueRecordNode> e = (Entry<String, ValueRecordNode>) itr
 						.next();
 
-				ValueRecord valueRecord = e.getValue();
+				ValueRecordNode valueRecord = e.getValue();
 
 				if (new Date().getTime()
 						- valueRecord.getTimeInserted().getTime() > valueRecord
