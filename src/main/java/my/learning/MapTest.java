@@ -1,4 +1,4 @@
-package my.interview.infibeam;
+package my.learning;
 
 import java.util.Date;
 import java.util.HashMap;
