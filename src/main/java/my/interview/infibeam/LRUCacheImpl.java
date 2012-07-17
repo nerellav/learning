@@ -111,7 +111,7 @@ class LRUCacheImpl implements LRUCache {
 	private void startTimerTask() {
 		// in TimeUnits -- using very small number to test concurrency
 		// put a reasonable values in real-world; 
-		// ToDo: these can be made constants
+		// TODO: these can be made constants
 		int delay = 1;
 		int repeat = 3;
 		
