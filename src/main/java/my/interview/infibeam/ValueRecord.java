@@ -9,7 +9,7 @@ import java.util.Date;
  * @author vamsi
  * 
  */
-class ValueRecord {
+public class ValueRecord {
 	// make all the fields mutable by declaring final
 	private final String value;
 	private final Date timeInserted;
@@ -17,7 +17,7 @@ class ValueRecord {
 	// specify ttl in seconds
 	private final long ttl;
 
-	ValueRecord(String v, Date d) {
+	public ValueRecord(String v, Date d) {
 		value = v;
 		timeInserted = d;
 
@@ -31,7 +31,7 @@ class ValueRecord {
 	 * @param t
 	 * @param timetolive
 	 */
-	ValueRecord(String v, Date d, long timeToLive) {
+	public ValueRecord(String v, Date d, long timeToLive) {
 		value = v;
 		timeInserted = d;
 
@@ -45,15 +45,15 @@ class ValueRecord {
 
 	}
 
-	String getValue() {
+	public String getValue() {
 		return value;
 	}
 
-	Date getTimeInserted() {
+	public Date getTimeInserted() {
 		return timeInserted;
 	}
 
-	long getTtl() {
+	public long getTtl() {
 		return ttl;
 	}
 
