@@ -1,4 +1,4 @@
-package com.learning;
+package my.learning;
 
 import java.util.ArrayList;
 import java.util.Collections;
