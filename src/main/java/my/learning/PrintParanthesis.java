@@ -18,15 +18,15 @@ public class PrintParanthesis {
 		List<String> words = new ArrayList<String>();
 		
 		String str = "";
-		for(int i = 0; i < 10; i++) {
+		for(int i = 0; i < 2; i++) {
 			WordStr s = input.get(i);
 			str.concat(s.strAt(i));
 //			for() {
 //				
 //			}
 		}
-		
-		System.out.println("a" + getChar("bce") + "d");
+		System.out.println(str.toCharArray());
+//		System.out.println("a" + getChar("bce") + "d");
 
 	}
 	private static String getChar(String s) {
