@@ -429,6 +429,70 @@ public class ArrayProblems {
 //	boolean isSubset(String s, char[] T) {
 //	//TODO
 //	}
+	
+	public static int[] findSubArray(int[] arr, int sum) {
+		
+		int curr_sum = 0, left_index =0, right_index =0;
+		
+		for (int i=0;i<arr.length; i++) {
+			curr_sum = arr[i];
+			
+			for (int j = i+1; j < arr.length; j++) {
+				
+				if (curr_sum == sum) {
+					left_index = i;
+					right_index = j;
+					return new int[]{left_index, right_index-1};
+				}
+				
+				curr_sum +=arr[j];
+			}
+			
+			if (curr_sum == sum) {
+				left_index = i;
+				return new int[]{left_index, arr.length-1};
+			}
+		}
+		
+		return new int[]{-1,-1};
+	}
+	
+	public static int[] findSubArrayHash(int[] arr, int sum) {
+		
+		int[] indexSum = new int[arr.length];
+		
+		indexSum[arr.length-1] = arr[arr.length-1];
+		
+		for (int i=arr.length-2;i>=0; i--) {
+			
+			indexSum[i] = arr[i] + indexSum[i+1];
+		
+		}
+		
+		return new int[]{-1,-1};
+	}
+	
+	static int[][] rotateMatrix(int[][] matrix) {
+        //transpose
+        for (int i = 0; i < matrix.length; i++)  {
+            for (int j = i; j < matrix.length; j++)  {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+        int n = matrix.length;
+        //transpose-reverse
+        for (int i = 0; i < matrix.length; i++)  {
+            for (int j = 0; j < n/2 ; j++)  {
+                //replace i,j with i, n-j
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[i][n-j-1];
+                matrix[i][n-j-1] = temp;
+            }
+        }
+        return matrix;
+   }
 
 	public static void main(String[] args) {
 		int arr[] = { 7, 10, 4, 2, 19, 15, 1, 12, 18 };
@@ -437,6 +501,11 @@ public class ArrayProblems {
 		printKthLargest(arr, 3);
 
 		printKthSmallest(arr, 3);
+		
+		System.out.println(Arrays.toString(findSubArray(arr, 16)));
+		
+		System.out.println(Arrays.toString(findSubArray(arr, 19)));
+		System.out.println(Arrays.toString(findSubArray(arr, 30)));
 
 //		pairExists(arr, 22);
 		pairExistsRotated(rarr, 11);
